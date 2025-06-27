@@ -19,7 +19,7 @@ export async function startREPL(state: State) {
     }
 
     try {
-      await cmd.callback(state);
+      await cmd.callback(state, input[1]);
     } catch (err) {
       console.error("Error occurred in callback:", (err as Error).message);
     }
