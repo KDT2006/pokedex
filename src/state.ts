@@ -1,11 +1,13 @@
 import { createInterface, Interface } from "readline";
 import { getCommands } from "./commands.js";
 import { PokeAPI } from "./pokeapi.js";
+import { Cache } from "./pokecache.js";
 
 export type State = {
   readInterface: Interface;
   commands: Record<string, CLICommand>;
   pokeApi: PokeAPI;
+  pokeCache: Cache;
   nextLocationsURL: string;
   prevLocationsURL: string;
 };
@@ -27,6 +29,7 @@ export function initState(): State {
     commands: getCommands(),
     readInterface: r1,
     pokeApi: new PokeAPI(),
+    pokeCache: new Cache(60000),
     nextLocationsURL: "",
     prevLocationsURL: "",
   };
