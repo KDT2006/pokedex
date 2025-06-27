@@ -7,9 +7,11 @@ export async function startREPL(state: State) {
     const input = cleanInput(line);
     if (input.length === 0) {
       state.readInterface.prompt();
+      return;
     }
 
     const commandName = input[0];
+    const args = input.slice(1);
 
     const cmd = state.commands[commandName];
     if (!cmd) {
@@ -19,7 +21,7 @@ export async function startREPL(state: State) {
     }
 
     try {
-      await cmd.callback(state, input[1]);
+      await cmd.callback(state, ...args);
     } catch (err) {
       console.error("Error occurred in callback:", (err as Error).message);
     }
